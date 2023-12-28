@@ -23,3 +23,19 @@ def test_return_without_accentuation():
     user.normalize()
 
     assert user.information != text
+
+
+def test_valid_len_information():
+    text = 'testing'
+    num = 20
+    user = User(information=text, limit=num)
+
+    assert user.is_valid_information()
+
+
+def test_invalid_len_information():
+    text = 'testing' 
+    num = 5
+    user = User(information=text, limit=num)
+
+    assert not user.is_valid_information()

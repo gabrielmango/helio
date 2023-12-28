@@ -14,6 +14,6 @@ class User:
             self.information = unidecode(self.information.lower())
 
     def is_valid_information(self) -> bool:
-        if len(self.information) <= self.maximum_lenght:
+        if len(self.information) <= self.limit:
             return True
         return False
