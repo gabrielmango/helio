@@ -12,3 +12,8 @@ class User:
     def normalize(self) -> str:
         if self.information:
             self.information = unidecode(self.information.lower())
+
+    def is_valid_information(self) -> bool:
+        if len(self.information) <= self.maximum_lenght:
+            return True
+        return False
