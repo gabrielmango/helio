@@ -34,7 +34,7 @@ def test_valid_len_information():
 
 
 def test_invalid_len_information():
-    text = 'testing' 
+    text = 'testing'
     num = 5
     user = User(information=text, limit=num)
 
