@@ -10,6 +10,5 @@ class User:
         self.validate = validate
 
     def normalize(self) -> str:
-        if not self.information:
-            return ''
-        return unidecode(self.information.lower())
+        if self.information:
+            self.information = unidecode(self.information.lower())
