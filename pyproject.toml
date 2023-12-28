@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "helio"
+version = "0.1.0"
+description = "Helio is a tool designed to help professionals who work with relational databases, facilitating the creation of SQL scripts to carry out migrations in backend projects."
+authors = ["Gabriel Mango <gabrielhmango@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+pip-audit = "^2.6.2"
+isort = "^5.13.2"
+mkdocs = "^1.5.3"
+blue = "^0.9.1"
+pylint = "^3.0.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
