@@ -1108,6 +1108,17 @@ files = [
 ]
 
 [[package]]
+name = "unidecode"
+version = "1.3.7"
+description = "ASCII transliterations of Unicode text"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "Unidecode-1.3.7-py3-none-any.whl", hash = "sha256:663a537f506834ed836af26a81b210d90cbde044c47bfbdc0fbbc9f94c86a6e4"},
+    {file = "Unidecode-1.3.7.tar.gz", hash = "sha256:3c90b4662aa0de0cb591884b934ead8d2225f1800d8da675a7750cbc3bd94610"},
+]
+
+[[package]]
 name = "urllib3"
 version = "2.1.0"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -1176,4 +1187,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "50e5a1fb67058c7bf1808f85618daad9754843e47748b3d29a2462c781687b05"
+content-hash = "4a451cab0d87f99fb8b8ad4747094a4a52390beaead0502faf67dda6af308989"
