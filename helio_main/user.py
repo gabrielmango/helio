@@ -3,7 +3,7 @@ from unidecode import unidecode
 
 class User:
     def __init__(
-        self, information: str = '', limit: int = 30, validate: bool = True
+        self, information: str = '', limit: int = 0, validate: bool = True
     ) -> None:
         self.information = information
         self.limit = limit
@@ -19,7 +19,7 @@ class User:
         return False
 
     def validate_information(self):
-        while self.validate and not self.is_valid_information_length():
+        while self.validate and not self.is_valid_information():
             self.prompt_for_new_input()
 
     def prompt_for_new_input(self) -> None:
@@ -34,3 +34,9 @@ class User:
                 f'(up to {self.maximum_lenght} characters): '
             )
         )
+
+    def get_infomation(self, value: str, number: int):
+        self.information = value
+        self.limit = number
+        self.normalize()
+        self.validate_information()
