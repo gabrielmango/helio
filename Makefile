@@ -14,7 +14,9 @@ i:
 # Format the code
 f:
 	@isort .
-	@black .
+	@black tests
+	@black helio
+	@python scripts/replace_quotes.py
 
 # Teste the code 
 t:
