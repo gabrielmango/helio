@@ -40,7 +40,7 @@ class User:
             "Please enter a sequence "
             f"(up to {self.limit} characters): "
         )
-        self.information = input('USER: ')
+        self.information = input("USER: ")
         self.normalize()
 
     def get_infomation(self, value: str, number: int) -> None:

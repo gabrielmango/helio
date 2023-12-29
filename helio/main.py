@@ -2,8 +2,8 @@
 import os
 from pprint import pprint
 
-from user import User
 from information import Sequence
+from user import User
 
 ENTITY_SIZE = 30
 TABLE_NAME_SIZE = 24
@@ -33,11 +33,11 @@ def main():
     user.get_infomation(
         input("\nHELIO: Enter the table name: \nUSER: "), TABLE_NAME_SIZE
     )
-    sql_information['main_table'] = user.information
+    sql_information["main_table"] = user.information
 
     # Getting sequence of the main table
-    user.get_infomation(Sequence.main(sql_information['main_table']), ENTITY_SIZE)
-    sql_information['main_sequence'] = user.information
+    user.get_infomation(Sequence.main(sql_information["main_table"]), ENTITY_SIZE)
+    sql_information["main_sequence"] = user.information
 
     pprint(sql_information)
 
