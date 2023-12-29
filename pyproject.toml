@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "helio"
-version = "0.1.0"
+version = "0.2.0"
 description = "Helio is a tool designed to help professionals who work with relational databases, facilitating the creation of SQL scripts to carry out migrations in backend projects."
 authors = ["Gabriel Mango <gabrielhmango@gmail.com>"]
 readme = "README.md"
