@@ -3,7 +3,7 @@ from unidecode import unidecode
 
 
 class User:
-    """Class to handle user information with validation."""
+    """Class to handle user information with validation."""  # noqa: D203
 
     def __init__(
         self, information: str = "", limit: int = 0, validate: bool = True
