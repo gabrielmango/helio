@@ -2,12 +2,11 @@
 
 # Run the projet
 run:
-	@poetry install
 	@poetry shell
-
+	
 # Install dev dependences
 i:
-	@poetry add --group dev pytest pip-audit isort mkdocs blue pylint
+	@poetry add --group dev pytest pip-audit isort mkdocs black prospector
 	@pylint --generate-rcfile > .pylintrc
 	@mkdocs new .
 	@pip-audit
@@ -15,7 +14,7 @@ i:
 # Format the code
 f:
 	@isort .
-	@blue .
+	@black .
 
 # Teste the code 
 t:
@@ -24,6 +23,6 @@ t:
 # Preper project to commit
 c:
 	@isort .
-	@blue .
+	@black .
 	@pytest -v
-	@pylint .
+	@prospector --with-tool pydocstyle
