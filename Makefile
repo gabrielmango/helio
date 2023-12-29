@@ -1,4 +1,4 @@
-.PHONY: run i f t  c
+.PHONY: run i f t  c branch
 
 # Run the projet
 run:
@@ -29,3 +29,7 @@ c:
 	@black helio
 	@pytest -v
 	@prospector --with-tool pydocstyle
+
+branch:
+	@git checkout main
+	@git pull
