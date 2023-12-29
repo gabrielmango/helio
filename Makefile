@@ -3,8 +3,7 @@
 # Run the projet
 run:
 	@poetry shell
-	@poetry install
-
+	
 # Install dev dependences
 i:
 	@poetry add --group dev pytest pip-audit isort mkdocs black prospector
