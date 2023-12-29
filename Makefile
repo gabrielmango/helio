@@ -25,6 +25,7 @@ t:
 # Preper project to commit
 c:
 	@isort .
-	@black .
+	@black tests
+	@black helio
 	@pytest -v
 	@prospector --with-tool pydocstyle
