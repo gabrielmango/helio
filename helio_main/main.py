@@ -1,12 +1,29 @@
+"""
+Module: helio
+
+This module defines the main function for Helio, a tool designed to assist
+professionals working with relational databases, facilitating the creation
+of SQL scripts to carry out migrations in backend projects.
+
+Functions:
+- main(): Helio's main function that initiates the tool.
+
+Constants:
+- ENTITY_SIZE: The size limit for collecting information from the user.
+
+Dependencies:
+- user.User: representing a user with methods for collecting information.
+"""
 import os
 from pprint import pprint
 
-from user import User
+from helio_main.user import User
 
 ENTITY_SIZE = 30
 
 
 def main():
+    """Helio's main function."""
 
     # Start the apresentation of Helio
     print('HELIO: Hello! My name is Helio.')
