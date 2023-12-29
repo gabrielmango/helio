@@ -1,9 +1,4 @@
-"""
-Module to handle user information with validation.
-
-This module defines a User class that can be used to manage user information,
-including normalization and validation.
-"""
+"""Module to handle user information with validation."""
 from unidecode import unidecode
 
 
@@ -11,7 +6,7 @@ class User:
     """Class to handle user information with validation."""
 
     def __init__(
-        self, information: str = '', limit: int = 0, validate: bool = True
+        self, information: str = "", limit: int = 0, validate: bool = True
     ) -> None:
         """Initialize User instance."""
         self.information = information
@@ -37,13 +32,13 @@ class User:
     def prompt_for_new_input(self) -> None:
         """Prompt the user for new input if the current information is invalid."""
         print(
-            f'Sorry, the sequence ({self.information}) '
-            'must have a maximum of 30 characters.'
+            f"Sorry, the sequence ({self.information}) "
+            "must have a maximum of 30 characters."
         )
         print(
-            f'It has {len(self.information)} characters.'
-            'Please enter a sequence '
-            f'(up to {self.limit} characters): '
+            f"It has {len(self.information)} characters."
+            "Please enter a sequence "
+            f"(up to {self.limit} characters): "
         )
         self.information = input()
         self.normalize()

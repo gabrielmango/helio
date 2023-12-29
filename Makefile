@@ -14,7 +14,9 @@ i:
 # Format the code
 f:
 	@isort .
-	@black .
+	@black tests
+	@black helio
+	@python scripts/replace_quotes.py
 
 # Teste the code 
 t:
@@ -23,6 +25,7 @@ t:
 # Preper project to commit
 c:
 	@isort .
-	@black .
+	@black tests
+	@black helio
 	@pytest -v
 	@prospector --with-tool pydocstyle
