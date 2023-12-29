@@ -1,4 +1,4 @@
-"""
+'''
 Module: helio
 
 This module defines the main function for Helio, a tool designed to assist
@@ -13,7 +13,7 @@ Constants:
 
 Dependencies:
 - user.User: representing a user with methods for collecting information.
-"""
+'''
 import os
 from pprint import pprint
 
@@ -23,7 +23,7 @@ ENTITY_SIZE = 30
 
 
 def main():
-    """Helio's main function."""
+    '''Helio's main function.'''
 
     # Start the apresentation of Helio
     print('HELIO: Hello! My name is Helio.')

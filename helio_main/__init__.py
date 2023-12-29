@@ -1,4 +1,4 @@
-"""
+'''
 Module for importing classes related to user functionality.
 
 Classes:
@@ -6,5 +6,5 @@ Classes:
 
 Author: Gabriel Henrique Mango
 Date: 2023-12-28
-"""
+'''
 from .user import User
