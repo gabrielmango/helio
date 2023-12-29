@@ -5,6 +5,7 @@ from pprint import pprint
 from user import User
 
 ENTITY_SIZE = 30
+TABLE_NAME_SIZE = 24
 
 
 def main():
@@ -26,6 +27,12 @@ def main():
         input("HELIO: Enter the project schema name: \nUSER: "), ENTITY_SIZE
     )
     sql_information["schema"] = user.information
+
+    # Getting table name
+    user.get_infomation(
+        input("HELIO: Enter the table name: \nUSER: "), TABLE_NAME_SIZE
+    )
+    sql_information['main_table'] = user.information
 
     pprint(sql_information)
 
