@@ -28,7 +28,7 @@ class Validator:
         return self.value
 
     def normalize(self, text: str) -> str:
-        return unidecode(str(text.replace(' ', '').lower()))
+        return self.remove_accent(str(text.replace(' ', '').lower()))
 
     def prompt_erro(self) -> None:
         print(
@@ -48,3 +48,6 @@ class Validator:
     def check_info(self):
         while not len(self.value) <= self.number:
             self.prompt_erro()
+
+    def remove_accent(self, value):
+        return unidecode(value)
