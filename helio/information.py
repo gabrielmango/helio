@@ -63,7 +63,7 @@ class Validator:
 class ColumnInformation:
     """A class for collecting information about database columns."""  # noqa: D203
 
-    def __init__(self, name_size, comment_size) -> None:
+    def __init__(self, name_size=30, comment_size=255) -> None:
         """Starts the class when instantiating."""
         self.name_size = name_size
         self.comment_size = comment_size
@@ -79,15 +79,23 @@ class ColumnInformation:
 
     def get_info(self) -> dict:
         """Collects information about a single column and returns a dictionary."""
-        return {
+        info = {
             "name": Validator("Enter column name", self.name_size).start(),
             "type": Validator("Enter column type", self.name_size).start().upper(),
             "required": Validator("Enter column NULL/NOT NULL", self.comment_size)
             .start()
             .upper(),
-            "commet": Validator("Enter column commet", self.comment_size).start(),
+            "commet": Validator("Enter column commet", self.comment_size).start()
         }
+        return self.format_information(info)
 
+    
+    def format_information(self, info: dict) -> str:
+        return {
+            'column': info['name'] + '   ' + info['type'] + '    ' + info['required'],
+            'commet': info['commet']
+        }
+    
     def question(self) -> bool:
         """Asks the user if they want to add a new column and returns a boolean."""
         print("HELIO: Do you want to add a new column? [y/n]")
@@ -168,4 +176,4 @@ class ContraintInformation:
 if __name__ == "__main__":
     from pprint import pprint
 
-    pprint(ContraintInformation().get())
+    pprint(ColumnInformation().get())
