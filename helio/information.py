@@ -107,7 +107,7 @@ class ColumnInformation:
         return False
     
     def create_first_column(self):
-        column_name = F'co_seq_{self.table_name[3:]}'
+        column_name = f'co_seq_{self.table_name[3:]}'
         return {
             "column": f'{column_name}   BIGINT  NOT NULL    DEFAULT nextval(',
             "commet": 'Chave primaria sequencial da tabela que eh gerada pela sequence '
@@ -115,17 +115,20 @@ class ColumnInformation:
 
 
 class ContraintInformation:
-    def __init__(self, name_size=30, comment_size=255) -> None:
+    def __init__(self, table_name: str, name_size: int = 30, comment_size: int = 255) -> None:
+        self.table_name = table_name
         self.name_size = name_size
         self.comment_size = comment_size
 
     def get(self) -> list[dict]:
-        columns = []
+        constraints = []
+        constraints.append(self.create_pk_contraint())
         while True:
-            columns.append(self.get_info())
             if not self.question():
                 break
-        return columns
+            constraints.append(self.get_info())
+
+        return constraints
 
     def get_info(self) -> str:
         info = {}
@@ -198,8 +201,19 @@ class ContraintInformation:
             "HELIO: The contraint types are PRIMARY KEY, FOREIGN KEY, CHECK and UNIQUE"
         )
 
+    def create_pk_contraint(self):
+        contraint_name = 'pk_' + self.table_name[3:].replace("_", "")
+        column_name = f'co_seq_{self.table_name[3:]}'
+        return ''.join(
+            [
+                'CONSTRAINT  ',
+                contraint_name,
+                f'   PRIMARY KEY ({column_name})'
+            ]
+        )
+    
 
 if __name__ == "__main__":
     from pprint import pprint
 
-    pprint(ColumnInformation('tb_pergunta').get())
+    pprint(ContraintInformation('tb_pergunta').get())
