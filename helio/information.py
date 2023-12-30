@@ -96,3 +96,76 @@ class ColumnInformation:
         if response == "y":
             return True
         return False
+
+
+class ContraintInformation:
+    def __init__(self, name_size=30, comment_size=255) -> None:
+        self.name_size = name_size
+        self.comment_size = comment_size
+
+    def get(self) -> list[dict]:
+        columns = []
+        while True:
+            columns.append(self.get_info())
+            if not self.question():
+                break
+        return columns
+
+    def get_info(self) -> dict:
+        info = {}
+
+        info["name"] = Validator("Enter contraint name", self.name_size).start()
+
+        print(
+            "HELIO: The contraint types are PRIMARY KEY, FOREIGN KEY, CHECK and UNIQUE"
+        )
+        info["type"] = (
+            Validator("Enter contraint type", self.comment_size).start().upper()
+        )
+
+        if info["type"] == "PRIMARY KEY" or info["type"] == "PRIMARY KEY":
+            info["description"] = Validator(
+                "Enter the column name", self.name_size
+            ).start()
+        elif info["type"] == "CHECK":
+            info["description"] = Validator(
+                "Enter the expression", self.name_size
+            ).start()
+        elif info["type"] == "FOREIGN KEY":
+            info["description"] = (
+                Validator("Enter the column name", self.name_size).start()
+                + " REFERENCES "
+            )
+            info["description"] += (
+                Validator("Enter the table name", self.name_size).start() + "("
+            )
+            info["description"] += (
+                Validator(
+                    "Enter the column name references table", self.name_size
+                ).start()
+                + ")"
+            )
+
+        return info
+
+    def question(self) -> bool:
+        print("HELIO: Do you want to add a new contraint? [y/n]")
+        response = input("USER: ")
+
+        if response == "y":
+            return True
+        return False
+
+    def prompt_types(
+        self,
+    ):
+        print(
+            "HELIO: The contraint types are PRIMARY KEY, FOREIGN KEY, CHECK and UNIQUE"
+        )
+
+
+
+if __name__ == "__main__":
+    from pprint import pprint
+
+    pprint(ContraintInformation().get())
