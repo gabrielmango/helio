@@ -45,7 +45,7 @@ class Validator:
             f"must have a maximum of {self.number} characters."
         )
         print(
-            f"HELIO: It has {len(self.value)} characters. " "Please enter a new one: "
+            f"HELIO: It has {len(self.value)} characters. ", "Please enter a new one: "
         )
         self.value = self.normalize(input("USER: "))
 
@@ -63,14 +63,18 @@ class Validator:
 class ColumnInformation:
     """A class for collecting information about database columns."""  # noqa: D203
 
-    def __init__(self, name_size, comment_size) -> None:
+    def __init__(
+        self, table_name: str, name_size: int = 30, comment_size: int = 255
+    ) -> None:
         """Starts the class when instantiating."""
+        self.table_name = table_name
         self.name_size = name_size
         self.comment_size = comment_size
 
     def get(self) -> list[dict]:
         """Collects information about multiple columns and returns a list of dictionaries."""
         columns = []
+        columns.append(self.create_first_column())
         while True:
             columns.append(self.get_info())
             if not self.question():
@@ -79,13 +83,21 @@ class ColumnInformation:
 
     def get_info(self) -> dict:
         """Collects information about a single column and returns a dictionary."""
-        return {
+        info = {
             "name": Validator("Enter column name", self.name_size).start(),
             "type": Validator("Enter column type", self.name_size).start().upper(),
             "required": Validator("Enter column NULL/NOT NULL", self.comment_size)
             .start()
             .upper(),
             "commet": Validator("Enter column commet", self.comment_size).start(),
+        }
+        return self.format_information(info)
+
+    def format_information(self, info: dict) -> str:
+        """Format column information to string."""
+        return {
+            "column": info["name"] + "   " + info["type"] + "    " + info["required"],
+            "commet": info["commet"],
         }
 
     def question(self) -> bool:
@@ -96,3 +108,112 @@ class ColumnInformation:
         if response == "y":
             return True
         return False
+
+    def create_first_column(self):
+        """Create the firts column for primary key."""
+        column_name = f"co_seq_{self.table_name[3:]}"
+        return {
+            "column": f"{column_name}   BIGINT  NOT NULL    DEFAULT nextval(",
+            "commet": "Chave primaria sequencial da tabela que eh gerada pela sequence ",
+        }
+
+
+class ContraintInformation:
+    def __init__(
+        self, table_name: str, name_size: int = 30, comment_size: int = 255
+    ) -> None:
+        """Starts the class when instantiating."""
+        self.table_name = table_name
+        self.name_size = name_size
+        self.comment_size = comment_size
+
+    def get(self) -> list[dict]:
+        """Collects information about a single constraint and returns a dictionary."""
+        constraints = []
+        constraints.append(self.create_pk_contraint())
+        while True:
+            if not self.question():
+                break
+            constraints.append(self.get_info())
+
+        return constraints
+
+    def get_info(self) -> str:
+        """Get information of contraints."""
+        info = {}
+
+        info["name"] = Validator("Enter contraint name", self.name_size).start()
+
+        print(
+            "HELIO: The contraint types are PRIMARY KEY",
+            "FOREIGN KEY, CHECK and UNIQUE",
+        )
+        info["type"] = (
+            Validator("Enter contraint type", self.comment_size).start().upper()
+        )
+
+        if info["type"] == "PRIMARY KEY" or info["type"] == "UNIQUE":
+            info["description"] = "("
+            info["description"] += Validator(
+                "Enter the column name", self.name_size
+            ).start()
+            info["description"] += ")"
+        elif info["type"] == "CHECK":
+            info["description"] = "("
+            info["description"] += Validator(
+                "Enter the expression", self.name_size
+            ).start()
+            info["description"] += ")"
+        elif info["type"] == "FOREIGN KEY":
+            info["description"] = "("
+            info["description"] += (
+                Validator("Enter the column name", self.name_size).start()
+                + ") REFERENCES "
+            )
+            info["description"] += (
+                Validator("Enter the table name", self.name_size).start() + "("
+            )
+            info["description"] += (
+                Validator(
+                    "Enter the column name references table", self.name_size
+                ).start()
+                + ")"
+            )
+
+        return self.format_information(info)
+
+    def format_information(self, info: dict) -> str:
+        """Format column information to string."""
+        return "".join(
+            [
+                "CONSTRAINT  ",
+                info["name"],
+                "    ",
+                info["type"],
+                "    ",
+                info["description"],
+            ]
+        )
+
+    def question(self) -> bool:
+        """Asks the user if they want to add a new column and returns a boolean."""
+        print("HELIO: Do you want to add a new contraint? [y/n]")
+        response = input("USER: ")
+
+        if response == "y":
+            return True
+        return False
+
+    def prompt_types(self):
+        """Prompt constraints types to user."""
+        print(
+            "HELIO: The contraint types are PRIMARY KEY, FOREIGN KEY, CHECK and UNIQUE"
+        )
+
+    def create_pk_contraint(self):
+        """Create the primary key."""
+        contraint_name = "pk_" + self.table_name[3:].replace("_", "")
+        column_name = f"co_seq_{self.table_name[3:]}"
+        return "".join(
+            ["CONSTRAINT  ", contraint_name, f"   PRIMARY KEY ({column_name})"]
+        )
