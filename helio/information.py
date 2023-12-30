@@ -63,14 +63,16 @@ class Validator:
 class ColumnInformation:
     """A class for collecting information about database columns."""  # noqa: D203
 
-    def __init__(self, name_size=30, comment_size=255) -> None:
+    def __init__(self, table_name: str, name_size: int = 30, comment_size: int = 255) -> None:
         """Starts the class when instantiating."""
+        self.table_name = table_name
         self.name_size = name_size
         self.comment_size = comment_size
 
     def get(self) -> list[dict]:
         """Collects information about multiple columns and returns a list of dictionaries."""
         columns = []
+        columns.append(self.create_first_column())
         while True:
             columns.append(self.get_info())
             if not self.question():
@@ -103,6 +105,13 @@ class ColumnInformation:
         if response == "y":
             return True
         return False
+    
+    def create_first_column(self):
+        column_name = F'co_seq_{self.table_name[3:]}'
+        return {
+            "column": f'{column_name}   BIGINT  NOT NULL    DEFAULT nextval(',
+            "commet": 'Chave primaria sequencial da tabela que eh gerada pela sequence '
+        }
 
 
 class ContraintInformation:
@@ -118,7 +127,7 @@ class ContraintInformation:
                 break
         return columns
 
-    def get_info(self) -> dict:
+    def get_info(self) -> str:
         info = {}
 
         info["name"] = Validator("Enter contraint name", self.name_size).start()
@@ -193,4 +202,4 @@ class ContraintInformation:
 if __name__ == "__main__":
     from pprint import pprint
 
-    pprint(ContraintInformation().get())
+    pprint(ColumnInformation('tb_pergunta').get())
