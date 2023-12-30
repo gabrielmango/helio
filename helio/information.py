@@ -92,6 +92,7 @@ class ColumnInformation:
         return self.format_information(info)
 
     def format_information(self, info: dict) -> str:
+        """Format column information to string."""
         return {
             "column": info["name"] + "   " + info["type"] + "    " + info["required"],
             "commet": info["commet"],
@@ -107,6 +108,7 @@ class ColumnInformation:
         return False
     
     def create_first_column(self):
+        """Create the firts column for primary key."""
         column_name = f'co_seq_{self.table_name[3:]}'
         return {
             "column": f'{column_name}   BIGINT  NOT NULL    DEFAULT nextval(',
@@ -116,11 +118,13 @@ class ColumnInformation:
 
 class ContraintInformation:
     def __init__(self, table_name: str, name_size: int = 30, comment_size: int = 255) -> None:
+        """Starts the class when instantiating."""
         self.table_name = table_name
         self.name_size = name_size
         self.comment_size = comment_size
 
     def get(self) -> list[dict]:
+        """Collects information about a single constraint and returns a dictionary."""
         constraints = []
         constraints.append(self.create_pk_contraint())
         while True:
@@ -131,6 +135,7 @@ class ContraintInformation:
         return constraints
 
     def get_info(self) -> str:
+        """Get information of contraints."""
         info = {}
 
         info["name"] = Validator("Enter contraint name", self.name_size).start()
@@ -173,6 +178,7 @@ class ContraintInformation:
         return self.format_information(info)
 
     def format_information(self, info: dict) -> str:
+        """Format column information to string."""
         return ''.join(
             [
                 "CONSTRAINT  ",
@@ -184,9 +190,8 @@ class ContraintInformation:
             ]
         )
 
-        
-
     def question(self) -> bool:
+        """Asks the user if they want to add a new column and returns a boolean."""
         print("HELIO: Do you want to add a new contraint? [y/n]")
         response = input("USER: ")
 
@@ -194,14 +199,14 @@ class ContraintInformation:
             return True
         return False
 
-    def prompt_types(
-        self,
-    ):
+    def prompt_types(self):
+        """Prompt constraints types to user."""
         print(
             "HELIO: The contraint types are PRIMARY KEY, FOREIGN KEY, CHECK and UNIQUE"
         )
 
     def create_pk_contraint(self):
+        """Create the primary key."""
         contraint_name = 'pk_' + self.table_name[3:].replace("_", "")
         column_name = f'co_seq_{self.table_name[3:]}'
         return ''.join(
@@ -211,9 +216,4 @@ class ContraintInformation:
                 f'   PRIMARY KEY ({column_name})'
             ]
         )
-    
 
-if __name__ == "__main__":
-    from pprint import pprint
-
-    pprint(ContraintInformation('tb_pergunta').get())
