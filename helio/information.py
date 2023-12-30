@@ -13,30 +13,21 @@ class Sequence:
 
 
 class Validator:
-
-    def __start(self, value: str, number: int):
-        self.value = value
+    def __init__(self, message: str, number: int) -> None:
+        self.message = message
         self.number = number
-        self.__normalize()
-        return self.__valid_info()
+        self.value = None
 
-    def __normalize(self): 
-        if isinstance(self.value, str):
-            self.valid = unidecode(self.value.lower())
-    
-    def __valid_len(self):
-        if len(self.value) <= self.number:
-            return True
-        return False
-    
-    def __valid_info(self):
-        while not self.__valid_len():
-            self.__prompt()
-            self.value = input('USER: ')
-            self.__normalize()
+    def star(self) -> str:
+        self.prompt_init()
+        while not len(self.value) <= self.number:
+            self.prompt_erro()
         return self.value
 
-    def __prompt(self):
+    def normalize(self, text: str) -> str:
+        return unidecode(str(text.replace(' ', '').lower()))
+
+    def prompt_erro(self) -> None:
         print(
             f"HELIO: Sorry, '{self.value}' "
             f"must have a maximum of {self.number} characters."
@@ -45,10 +36,8 @@ class Validator:
             f"HELIO: It has {len(self.value)} characters. "
             "Please enter a new one: "
         )
-
-    @staticmethod
-    def get(mensage: str, size):
-        print(f'\nHELIO: {mensage}, please.')
-        validador = Validator()
-        info = input('USER: ')
-        return validador.__start(info, size)
+        self.value = self.normalize(input('USER: '))
+    
+    def prompt_init(self) -> None:
+        print(f'\nHELIO: {self.message}, please.')
+        self.value = self.normalize(input('USER: '))
