@@ -2,11 +2,11 @@
 import os
 from pprint import pprint
 
-from information import Sequence
-from user import User
+from information import Sequence, Validator
 
 ENTITY_SIZE = 30
 TABLE_NAME_SIZE = 24
+COMMENT = 255
 
 
 def main():
@@ -21,23 +21,25 @@ def main():
 
     # Create dict for all script SQL information
     sql_information = {}
-    user = User()
 
     # Getting schema name
-    user.get_infomation(
-        input("HELIO: Enter the project schema name: \nUSER: "), ENTITY_SIZE
-    )
-    sql_information["schema"] = user.information
+    sql_information["schema"] = Validator(
+        "Enter the project schema name", ENTITY_SIZE
+    ).start()
 
-    # Getting main table name
-    user.get_infomation(
-        input("\nHELIO: Enter the table name: \nUSER: "), TABLE_NAME_SIZE
-    )
-    sql_information["main_table"] = user.information
+    # Getting table name
+    sql_information["table"] = Validator(
+        "Enter the table name", TABLE_NAME_SIZE
+    ).start()
 
-    # Getting sequence of the main table
-    user.get_infomation(Sequence.main(sql_information["main_table"]), ENTITY_SIZE)
-    sql_information["main_sequence"] = user.information
+    # Getting table comment
+    sql_information["table_comment"] = Validator(
+        "Enter the table comment", COMMENT
+    ).start()
+
+    # Getting sequence
+    sequence_name = Sequence.main(sql_information["table"])
+    sql_information["sequence"] = Validator(number=ENTITY_SIZE).start(sequence_name)
 
     pprint(sql_information)
 
