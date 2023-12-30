@@ -26,14 +26,16 @@ def main():
     # Getting schema name
     sql_information['schema'] = Validator('Enter the project schema name', ENTITY_SIZE).start()
 
-    # Getting schema name
+    # Getting table name
     sql_information['table'] = Validator('Enter the table name', TABLE_NAME_SIZE).start()
 
+    # Getting table comment
+    sql_information['table_comment'] = input('Enter the table comment, please.')
 
+    # Getting sequence 
+    sequence_name = Sequence.main(sql_information["table"])
+    sql_information['sequence'] = Validator(number=ENTITY_SIZE).start(sequence_name)
 
-    # # Getting sequence of the main table
-    # user.get_infomation(Sequence.main(sql_information["main_table"]), ENTITY_SIZE)
-    # sql_information["main_sequence"] = user.information
 
     pprint(sql_information)
 
