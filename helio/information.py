@@ -51,7 +51,7 @@ class Validator:
 
     def prompt_init(self) -> None:
         """Prompt to user make the input of information."""
-        print(f"\nHELIO: {self.message}, please.")
+        print(f"\nHELIO: Enter {self.message}, please.")
         self.value = self.normalize(input("USER: "))
 
     def check_info(self) -> None:
@@ -84,12 +84,12 @@ class ColumnInformation:
     def get_info(self) -> dict:
         """Collects information about a single column and returns a dictionary."""
         info = {
-            "name": Validator("Enter column name", self.name_size).start(),
-            "type": Validator("Enter column type", self.name_size).start().upper(),
-            "required": Validator("Enter column NULL/NOT NULL", self.comment_size)
+            "name": Validator("column name", self.name_size).start(),
+            "type": Validator("column type", self.name_size).start().upper(),
+            "required": Validator("column NULL/NOT NULL", self.comment_size)
             .start()
             .upper(),
-            "commet": Validator("Enter column commet", self.comment_size).start(),
+            "commet": Validator("column commet", self.comment_size).start(),
         }
         return self.format_information(info)
 
@@ -142,40 +142,40 @@ class ContraintInformation:
         """Get information of contraints."""
         info = {}
 
-        info["name"] = Validator("Enter contraint name", self.name_size).start()
+        info["name"] = Validator("contraint name", self.name_size).start()
 
         print(
             "HELIO: The contraint types are PRIMARY KEY",
             "FOREIGN KEY, CHECK and UNIQUE",
         )
         info["type"] = (
-            Validator("Enter contraint type", self.comment_size).start().upper()
+            Validator("contraint type", self.comment_size).start().upper()
         )
 
         if info["type"] == "PRIMARY KEY" or info["type"] == "UNIQUE":
             info["description"] = "("
             info["description"] += Validator(
-                "Enter the column name", self.name_size
+                "column name", self.name_size
             ).start()
             info["description"] += ")"
         elif info["type"] == "CHECK":
             info["description"] = "("
             info["description"] += Validator(
-                "Enter the expression", self.name_size
+                "expression", self.name_size
             ).start()
             info["description"] += ")"
         elif info["type"] == "FOREIGN KEY":
             info["description"] = "("
             info["description"] += (
-                Validator("Enter the column name", self.name_size).start()
+                Validator("column name", self.name_size).start()
                 + ") REFERENCES "
             )
             info["description"] += (
-                Validator("Enter the table name", self.name_size).start() + "("
+                Validator("table name", self.name_size).start() + "("
             )
             info["description"] += (
                 Validator(
-                    "Enter the column name references table", self.name_size
+                    "column name references table", self.name_size
                 ).start()
                 + ")"
             )
