@@ -3,13 +3,16 @@ from helio import Validator
 
 
 def test_str_normalize_lower():
-    text = 'ABCDEFG'
+    """Test the string lower after normalize."""
+    text = "ABCDEFG"
     result = Validator().normalize(text)
 
     assert result.islower()
 
+
 def test_str_normalize_without_accentuation():
-    text = 'ãêíõù'
+    """Test the string without accentuation."""
+    text = "ãêíõù"
     result = Validator().normalize(text)
 
     assert text != result

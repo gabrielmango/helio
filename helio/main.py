@@ -3,7 +3,6 @@ import os
 from pprint import pprint
 
 from information import Sequence, Validator
-from user import User
 
 ENTITY_SIZE = 30
 TABLE_NAME_SIZE = 24
@@ -24,18 +23,23 @@ def main():
     sql_information = {}
 
     # Getting schema name
-    sql_information['schema'] = Validator('Enter the project schema name', ENTITY_SIZE).start()
+    sql_information["schema"] = Validator(
+        "Enter the project schema name", ENTITY_SIZE
+    ).start()
 
     # Getting table name
-    sql_information['table'] = Validator('Enter the table name', TABLE_NAME_SIZE).start()
+    sql_information["table"] = Validator(
+        "Enter the table name", TABLE_NAME_SIZE
+    ).start()
 
     # Getting table comment
-    sql_information['table_comment'] = Validator('Enter the table comment', COMMENT).start()
+    sql_information["table_comment"] = Validator(
+        "Enter the table comment", COMMENT
+    ).start()
 
-    # Getting sequence 
+    # Getting sequence
     sequence_name = Sequence.main(sql_information["table"])
-    sql_information['sequence'] = Validator(number=ENTITY_SIZE).start(sequence_name)
-
+    sql_information["sequence"] = Validator(number=ENTITY_SIZE).start(sequence_name)
 
     pprint(sql_information)
 
