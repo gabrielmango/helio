@@ -2,7 +2,7 @@
 import os
 from pprint import pprint
 
-from information import ColumnInformation, Sequence, Validator, ContraintInformation
+from information import ColumnInformation, ContraintInformation, Sequence, Validator
 
 ENTITY_SIZE = 30
 TABLE_NAME_SIZE = 24
@@ -45,7 +45,9 @@ def main():
     sql_information["columns"] = ColumnInformation(sql_information["table"]).get()
 
     # Getting constraints
-    sql_information['constraints'] = ContraintInformation(sql_information["table"]).get()
+    sql_information["constraints"] = ContraintInformation(
+        sql_information["table"]
+    ).get()
 
     pprint(sql_information)
 

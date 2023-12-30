@@ -45,7 +45,7 @@ class Validator:
             f"must have a maximum of {self.number} characters."
         )
         print(
-            f"HELIO: It has {len(self.value)} characters. " "Please enter a new one: "
+            f"HELIO: It has {len(self.value)} characters. ", "Please enter a new one: "
         )
         self.value = self.normalize(input("USER: "))
 
@@ -63,7 +63,9 @@ class Validator:
 class ColumnInformation:
     """A class for collecting information about database columns."""  # noqa: D203
 
-    def __init__(self, table_name: str, name_size: int = 30, comment_size: int = 255) -> None:
+    def __init__(
+        self, table_name: str, name_size: int = 30, comment_size: int = 255
+    ) -> None:
         """Starts the class when instantiating."""
         self.table_name = table_name
         self.name_size = name_size
@@ -106,18 +108,20 @@ class ColumnInformation:
         if response == "y":
             return True
         return False
-    
+
     def create_first_column(self):
         """Create the firts column for primary key."""
-        column_name = f'co_seq_{self.table_name[3:]}'
+        column_name = f"co_seq_{self.table_name[3:]}"
         return {
-            "column": f'{column_name}   BIGINT  NOT NULL    DEFAULT nextval(',
-            "commet": 'Chave primaria sequencial da tabela que eh gerada pela sequence '
+            "column": f"{column_name}   BIGINT  NOT NULL    DEFAULT nextval(",
+            "commet": "Chave primaria sequencial da tabela que eh gerada pela sequence ",
         }
 
 
 class ContraintInformation:
-    def __init__(self, table_name: str, name_size: int = 30, comment_size: int = 255) -> None:
+    def __init__(
+        self, table_name: str, name_size: int = 30, comment_size: int = 255
+    ) -> None:
         """Starts the class when instantiating."""
         self.table_name = table_name
         self.name_size = name_size
@@ -141,26 +145,27 @@ class ContraintInformation:
         info["name"] = Validator("Enter contraint name", self.name_size).start()
 
         print(
-            "HELIO: The contraint types are PRIMARY KEY, FOREIGN KEY, CHECK and UNIQUE"
+            "HELIO: The contraint types are PRIMARY KEY",
+            "FOREIGN KEY, CHECK and UNIQUE",
         )
         info["type"] = (
             Validator("Enter contraint type", self.comment_size).start().upper()
         )
 
         if info["type"] == "PRIMARY KEY" or info["type"] == "UNIQUE":
-            info["description"] = '('
+            info["description"] = "("
             info["description"] += Validator(
                 "Enter the column name", self.name_size
             ).start()
-            info["description"] += ')'
+            info["description"] += ")"
         elif info["type"] == "CHECK":
-            info["description"] = '('
+            info["description"] = "("
             info["description"] += Validator(
                 "Enter the expression", self.name_size
             ).start()
-            info["description"] += ')'
+            info["description"] += ")"
         elif info["type"] == "FOREIGN KEY":
-            info["description"] = '('
+            info["description"] = "("
             info["description"] += (
                 Validator("Enter the column name", self.name_size).start()
                 + ") REFERENCES "
@@ -179,14 +184,14 @@ class ContraintInformation:
 
     def format_information(self, info: dict) -> str:
         """Format column information to string."""
-        return ''.join(
+        return "".join(
             [
                 "CONSTRAINT  ",
                 info["name"],
                 "    ",
                 info["type"],
                 "    ",
-                info["description"]
+                info["description"],
             ]
         )
 
@@ -207,13 +212,8 @@ class ContraintInformation:
 
     def create_pk_contraint(self):
         """Create the primary key."""
-        contraint_name = 'pk_' + self.table_name[3:].replace("_", "")
-        column_name = f'co_seq_{self.table_name[3:]}'
-        return ''.join(
-            [
-                'CONSTRAINT  ',
-                contraint_name,
-                f'   PRIMARY KEY ({column_name})'
-            ]
+        contraint_name = "pk_" + self.table_name[3:].replace("_", "")
+        column_name = f"co_seq_{self.table_name[3:]}"
+        return "".join(
+            ["CONSTRAINT  ", contraint_name, f"   PRIMARY KEY ({column_name})"]
         )
-
