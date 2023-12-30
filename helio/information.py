@@ -54,7 +54,7 @@ class Validator:
         print(f"\nHELIO: {self.message}, please.")
         self.value = self.normalize(input("USER: "))
 
-    def check_info(self):
+    def check_info(self) -> None:
         """Checks the lenght of input."""
         while not len(self.value) <= self.number:
             self.prompt_erro()
@@ -65,7 +65,7 @@ class ColumnInformation:
         self.name_size = name_size
         self.comment_size = comment_size
 
-    def get(self):
+    def get(self) -> list[dict]:
         columns = []
         while True:
             columns.append(self.get_info())
@@ -73,7 +73,7 @@ class ColumnInformation:
                 break
         return columns
 
-    def get_info(self):
+    def get_info(self) -> dict:
         return {
             "name": Validator("Enter column name", self.name_size).start(),
             "type": Validator("Enter column type", self.name_size).start().upper(),
@@ -83,11 +83,10 @@ class ColumnInformation:
             "commet": Validator("Enter column commet", self.comment_size).start(),
         }
 
-    def question(self):
+    def question(self) -> bool:
         print("HELIO: Do you want to add a new column? [y/n]")
         response = input("USER: ")
 
         if response == "y":
             return True
         return False
-
