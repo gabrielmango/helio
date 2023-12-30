@@ -64,7 +64,7 @@ class ColumnInformation:
     def __init__(self, name_size, comment_size) -> None:
         self.name_size = name_size
         self.comment_size = comment_size
-    
+
     def get(self):
         columns = []
         while True:
@@ -75,16 +75,19 @@ class ColumnInformation:
 
     def get_info(self):
         return {
-            'name': Validator('Enter column name', self.name_size).start(),
-            'type': Validator('Enter column type', self.name_size).start(),
-            'required': Validator('Enter column required', self.name_size).start(),
-            'commet': Validator('Enter column commet', self.comment_size).start(),
+            "name": Validator("Enter column name", self.name_size).start(),
+            "type": Validator("Enter column type", self.name_size).start().upper(),
+            "required": Validator("Enter column NULL/NOT NULL", self.comment_size)
+            .start()
+            .upper(),
+            "commet": Validator("Enter column commet", self.comment_size).start(),
         }
 
-    def question(self): 
-        print('HELIO: Do you want to add a new column? [y/n]')
-        response = input('USER: ')
-        
-        if response == 'y':
+    def question(self):
+        print("HELIO: Do you want to add a new column? [y/n]")
+        response = input("USER: ")
+
+        if response == "y":
             return True
         return False
+
