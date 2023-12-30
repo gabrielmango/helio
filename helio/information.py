@@ -85,17 +85,16 @@ class ColumnInformation:
             "required": Validator("Enter column NULL/NOT NULL", self.comment_size)
             .start()
             .upper(),
-            "commet": Validator("Enter column commet", self.comment_size).start()
+            "commet": Validator("Enter column commet", self.comment_size).start(),
         }
         return self.format_information(info)
 
-    
     def format_information(self, info: dict) -> str:
         return {
-            'column': info['name'] + '   ' + info['type'] + '    ' + info['required'],
-            'commet': info['commet']
+            "column": info["name"] + "   " + info["type"] + "    " + info["required"],
+            "commet": info["commet"],
         }
-    
+
     def question(self) -> bool:
         """Asks the user if they want to add a new column and returns a boolean."""
         print("HELIO: Do you want to add a new column? [y/n]")
@@ -131,18 +130,23 @@ class ContraintInformation:
             Validator("Enter contraint type", self.comment_size).start().upper()
         )
 
-        if info["type"] == "PRIMARY KEY" or info["type"] == "PRIMARY KEY":
-            info["description"] = Validator(
+        if info["type"] == "PRIMARY KEY" or info["type"] == "UNIQUE":
+            info["description"] = '('
+            info["description"] += Validator(
                 "Enter the column name", self.name_size
             ).start()
+            info["description"] += ')'
         elif info["type"] == "CHECK":
-            info["description"] = Validator(
+            info["description"] = '('
+            info["description"] += Validator(
                 "Enter the expression", self.name_size
             ).start()
+            info["description"] += ')'
         elif info["type"] == "FOREIGN KEY":
-            info["description"] = (
+            info["description"] = '('
+            info["description"] += (
                 Validator("Enter the column name", self.name_size).start()
-                + " REFERENCES "
+                + ") REFERENCES "
             )
             info["description"] += (
                 Validator("Enter the table name", self.name_size).start() + "("
@@ -154,7 +158,21 @@ class ContraintInformation:
                 + ")"
             )
 
-        return info
+        return self.format_information(info)
+
+    def format_information(self, info: dict) -> str:
+        return ''.join(
+            [
+                "CONSTRAINT  ",
+                info["name"],
+                "    ",
+                info["type"],
+                "    ",
+                info["description"]
+            ]
+        )
+
+        
 
     def question(self) -> bool:
         print("HELIO: Do you want to add a new contraint? [y/n]")
@@ -172,8 +190,7 @@ class ContraintInformation:
         )
 
 
-
 if __name__ == "__main__":
     from pprint import pprint
 
-    pprint(ColumnInformation().get())
+    pprint(ContraintInformation().get())

@@ -41,7 +41,7 @@ def main():
     sequence_name = Sequence.main(sql_information["table"])
     sql_information["sequence"] = Validator(number=ENTITY_SIZE).start(sequence_name)
 
-    sql_information["columns"] = ColumnInformation(ENTITY_SIZE, COMMENT).get()
+    sql_information["columns"] = ColumnInformation().get()
 
     pprint(sql_information)
 
