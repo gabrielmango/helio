@@ -61,11 +61,15 @@ class Validator:
 
 
 class ColumnInformation:
+    """A class for collecting information about database columns."""  # noqa: D203
+
     def __init__(self, name_size, comment_size) -> None:
+        """Starts the class when instantiating."""
         self.name_size = name_size
         self.comment_size = comment_size
 
     def get(self) -> list[dict]:
+        """Collects information about multiple columns and returns a list of dictionaries."""
         columns = []
         while True:
             columns.append(self.get_info())
@@ -74,6 +78,7 @@ class ColumnInformation:
         return columns
 
     def get_info(self) -> dict:
+        """Collects information about a single column and returns a dictionary."""
         return {
             "name": Validator("Enter column name", self.name_size).start(),
             "type": Validator("Enter column type", self.name_size).start().upper(),
@@ -84,6 +89,7 @@ class ColumnInformation:
         }
 
     def question(self) -> bool:
+        """Asks the user if they want to add a new column and returns a boolean."""
         print("HELIO: Do you want to add a new column? [y/n]")
         response = input("USER: ")
 
