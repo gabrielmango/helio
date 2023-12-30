@@ -13,7 +13,7 @@ class Sequence:
 
 
 class Validator:
-    def __init__(self, message: str = '', number: int = 0) -> None:
+    def __init__(self, message: str = '', number: int = 1) -> None:
         self.message = message
         self.number = number
         self.value = None
@@ -28,7 +28,9 @@ class Validator:
         return self.value
 
     def normalize(self, text: str) -> str:
-        return self.remove_accent(str(text.replace(' ', '').lower()))
+        if self.number > 100:
+            return unidecode(str(text.capitalize()))
+        return unidecode(str(text.replace(' ', '').lower()))
 
     def prompt_erro(self) -> None:
         print(

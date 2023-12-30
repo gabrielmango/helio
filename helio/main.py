@@ -30,8 +30,7 @@ def main():
     sql_information['table'] = Validator('Enter the table name', TABLE_NAME_SIZE).start()
 
     # Getting table comment
-    table_comment = input('Enter the table comment, please').capitalize()
-    sql_information['table_comment'] = Validator().remove_accent(table_comment)
+    sql_information['table_comment'] = Validator('Enter the table comment', COMMENT).start()
 
     # Getting sequence 
     sequence_name = Sequence.main(sql_information["table"])
