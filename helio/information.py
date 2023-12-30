@@ -18,7 +18,7 @@ class Validator:
         self.number = number
         self.value = None
 
-    def star(self) -> str:
+    def start(self) -> str:
         self.prompt_init()
         while not len(self.value) <= self.number:
             self.prompt_erro()
