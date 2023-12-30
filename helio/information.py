@@ -18,10 +18,13 @@ class Validator:
         self.number = number
         self.value = None
 
-    def start(self) -> str:
-        self.prompt_init()
-        while not len(self.value) <= self.number:
-            self.prompt_erro()
+    def start(self, info: str = None) -> str:
+        if info:
+            self.value = self.normalize(info)
+        else:
+            self.prompt_init()
+
+        self.check_info()
         return self.value
 
     def normalize(self, text: str) -> str:
@@ -41,3 +44,7 @@ class Validator:
     def prompt_init(self) -> None:
         print(f'\nHELIO: {self.message}, please.')
         self.value = self.normalize(input('USER: '))
+
+    def check_info(self):
+        while not len(self.value) <= self.number:
+            self.prompt_erro()
