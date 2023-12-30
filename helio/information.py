@@ -13,7 +13,7 @@ class Sequence:
 
 
 class Validator:
-    def __init__(self, message: str, number: int) -> None:
+    def __init__(self, message: str = '', number: int = 0) -> None:
         self.message = message
         self.number = number
         self.value = None

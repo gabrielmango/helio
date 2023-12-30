@@ -20,7 +20,7 @@ f:
 
 # Teste the code 
 t:
-	@pytest tests/test_sequence.py
+	@pytest tests/test_validador.py
 
 # Preper project to commit
 c:
