@@ -2,7 +2,7 @@
 import os
 from pprint import pprint
 
-from information import Sequence, Validator
+from information import ColumnInformation, Sequence, Validator
 
 ENTITY_SIZE = 30
 TABLE_NAME_SIZE = 24
@@ -40,6 +40,8 @@ def main():
     # Getting sequence
     sequence_name = Sequence.main(sql_information["table"])
     sql_information["sequence"] = Validator(number=ENTITY_SIZE).start(sequence_name)
+
+    sql_information["columns"] = ColumnInformation(ENTITY_SIZE, COMMENT).get()
 
     pprint(sql_information)
 

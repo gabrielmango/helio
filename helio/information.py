@@ -54,7 +54,45 @@ class Validator:
         print(f"\nHELIO: {self.message}, please.")
         self.value = self.normalize(input("USER: "))
 
-    def check_info(self):
+    def check_info(self) -> None:
         """Checks the lenght of input."""
         while not len(self.value) <= self.number:
             self.prompt_erro()
+
+
+class ColumnInformation:
+    """A class for collecting information about database columns."""  # noqa: D203
+
+    def __init__(self, name_size, comment_size) -> None:
+        """Starts the class when instantiating."""
+        self.name_size = name_size
+        self.comment_size = comment_size
+
+    def get(self) -> list[dict]:
+        """Collects information about multiple columns and returns a list of dictionaries."""
+        columns = []
+        while True:
+            columns.append(self.get_info())
+            if not self.question():
+                break
+        return columns
+
+    def get_info(self) -> dict:
+        """Collects information about a single column and returns a dictionary."""
+        return {
+            "name": Validator("Enter column name", self.name_size).start(),
+            "type": Validator("Enter column type", self.name_size).start().upper(),
+            "required": Validator("Enter column NULL/NOT NULL", self.comment_size)
+            .start()
+            .upper(),
+            "commet": Validator("Enter column commet", self.comment_size).start(),
+        }
+
+    def question(self) -> bool:
+        """Asks the user if they want to add a new column and returns a boolean."""
+        print("HELIO: Do you want to add a new column? [y/n]")
+        response = input("USER: ")
+
+        if response == "y":
+            return True
+        return False
